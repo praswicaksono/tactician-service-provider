@@ -1,0 +1,21 @@
+{
+    "name": "jowy/tactician-service-provider",
+    "description": "Silex tactician service provider",
+    "require": {
+        "silex/silex": "~2.0@dev",
+        "league/tactician": "0.3.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Prasetyo Wicaksono",
+            "email": "pras@openmailbox.org"
+        }
+    ],
+    "autoload": {
+        "psr-4" : {
+            "Silex\\" : "src/Silex/"
+        }
+    },
+    "minimum-stability": "stable"
+}
