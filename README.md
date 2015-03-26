@@ -1,5 +1,6 @@
 ## Tactician Service Provider
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Atriedes/tactician-service-provider/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Atriedes/tactician-service-provider/?branch=master) [![Build Status](https://travis-ci.org/Atriedes/tactician-service-provider.svg?branch=master)](https://travis-ci.org/Atriedes/tactician-service-provider)
+
 Provides Tactician as service to Pimple or Silex Container
 
 ### Requirements
@@ -14,17 +15,17 @@ Provides Tactician as service to Pimple or Silex Container
 
 ### Usage
 
+#### Register command handler in DIC
+
 ~~~php
-/**
-* Register handler in DI
-* 
-*  container id must be app.handler.CommandClassName without namespace
-* /
 $app["app.handler.CommandClassName"] = function() {
     return new \Package\Handler\HandlerClassName();
 };
+~~~
 
-// Register Tactician Service
+#### Register tactician service provider
+
+~~~php
 $app->register(
     new TacticianServiceProvider(),
     [
@@ -38,6 +39,8 @@ $app->register(
     ]
 );
 ~~~
+
+#### Notes
 
 There is some for registering `Command Handler` class in `Pimple`
 
