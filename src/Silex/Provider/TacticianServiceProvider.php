@@ -54,3 +54,5 @@ class TacticianServiceProvider implements ServiceProviderInterface
         };
     }
 }
+
+// EOF

@@ -7,6 +7,10 @@ use League\Tactician\Command;
 use League\Tactician\Handler\Locator\HandlerLocator;
 use Pimple\Container;
 
+/**
+ * Class Silex
+ * @package Silex\Component\Tactician\Locator
+ */
 class Silex implements HandlerLocator
 {
     /**

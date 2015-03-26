@@ -46,6 +46,9 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf("League\\Tactician\\CommandBus", $container["command.bus"]);
     }
 
+    /**
+     * return void
+     */
     public function testClassNameLocator()
     {
         $container = $this->init();
@@ -75,6 +78,9 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($container["command.bus"]->handle($command), "jowy");
     }
 
+    /**
+     * return void
+     */
     public function testHandleLocator()
     {
         $container = $this->init();
@@ -104,6 +110,9 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($container["command.bus"]->handle($command), "jowy");
     }
 
+    /**
+     * return void
+     */
     public function testInvokeLocator()
     {
         $container = $this->init();
@@ -133,6 +142,9 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($container["command.bus"]->handle($command), "jowy");
     }
 
+    /**
+     * return void
+     */
     public function testMiddleware()
     {
         $container = $this->init();
