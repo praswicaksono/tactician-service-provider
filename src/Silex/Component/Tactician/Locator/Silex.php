@@ -36,5 +36,3 @@ class Silex implements HandlerLocator
         return $this->app[$handler_id];
     }
 }
-
-// EOF

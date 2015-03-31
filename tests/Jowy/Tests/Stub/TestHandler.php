@@ -38,5 +38,3 @@ class TestHandler
         return $command->param;
     }
 }
-
-// EOF

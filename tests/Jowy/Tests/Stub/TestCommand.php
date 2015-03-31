@@ -13,5 +13,3 @@ class TestCommand implements Command
 {
     public $param;
 }
-
-// EOF

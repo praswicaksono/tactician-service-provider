@@ -22,5 +22,3 @@ class TestMiddleware implements Middleware
         return "middleware";
     }
 }
-
-// EOF

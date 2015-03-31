@@ -61,7 +61,7 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
                     [
                         function() {
                             return new LockingMiddleware();
-                        }
+                        },
                     ]
             ]
         );
@@ -174,5 +174,3 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($container["command.bus"]->handle($command), "middleware");
     }
 }
-
-// EOF
