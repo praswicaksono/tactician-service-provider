@@ -37,9 +37,10 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
             new TacticianServiceProvider($container),
             [
                 "tactician.inflector" => "class_name",
-                "tactician.middlewares" => function() {
-                    return new LockingMiddleware();
-                }
+                "tactician.middlewares" =>
+                    [
+                        new LockingMiddleware()
+                    ]
             ]
         );
 
@@ -59,9 +60,7 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
                 "tactician.inflector" => "class_name",
                 "tactician.middlewares" =>
                     [
-                        function() {
-                            return new LockingMiddleware();
-                        },
+                        new LockingMiddleware()
                     ]
             ]
         );
@@ -91,9 +90,7 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
                 "tactician.inflector" => "handle",
                 "tactician.middlewares" =>
                     [
-                        function() {
-                            return new LockingMiddleware();
-                        }
+                        new LockingMiddleware()
                     ]
             ]
         );
@@ -123,9 +120,7 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
                 "tactician.inflector" => "invoke",
                 "tactician.middlewares" =>
                     [
-                        function() {
-                            return new LockingMiddleware();
-                        }
+                        new LockingMiddleware()
                     ]
             ]
         );
@@ -155,9 +150,7 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
                 "tactician.inflector" => "invoke",
                 "tactician.middlewares" =>
                     [
-                        function() {
-                            return new TestMiddleware();
-                        }
+                        new TestMiddleware()
                     ]
             ]
         );

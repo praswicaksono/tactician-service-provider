@@ -32,9 +32,7 @@ $app->register(
         "tactician.inflector" => "class_name",
         "tactician.middlewares" =>
             [
-                function() {
-                    return new LockingMiddleware();
-                }
+                new LockingMiddleware();
             ]
     ]
 );
@@ -42,7 +40,7 @@ $app->register(
 
 #### Notes
 
-There is some for registering `Command Handler` class in `Pimple`
+There is some notes for registering `Command Handler` class in `Pimple`
 
 * Id must be `app.handler.CommandClassName` without full namespace
 * Must return `Command Handler` object
@@ -68,15 +66,9 @@ $app->register(
         "tactician.inflector" => "class_name",
         "tactician.middlewares" =>
             [
-                function() {
-                    return new LockingMiddleware();
-                },
-                function() {
-                    return new SomeMiddleware();
-                },
-                function() {
-                    return new OtherMiddleware();
-                }
+                new LockingMiddleware().
+                new SomeMiddleware(),
+                new OtherMiddleware()
             ]
     ]
 );

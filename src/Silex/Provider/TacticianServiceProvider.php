@@ -43,12 +43,8 @@ class TacticianServiceProvider implements ServiceProviderInterface
                 $inflector
             );
 
-            $middlewares = [];
-            foreach ($app["tactician.middlewares"] as $middleware) {
-                $middlewares[] = $middleware();
-            }
-
-            $middlewares[] = $handler_middleware;
+            $middlewares = $app["tactician.middlewares"];
+            array_push($middlewares, $handler_middleware);
 
             return new CommandBus($middlewares);
         };
