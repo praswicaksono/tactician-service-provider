@@ -3,8 +3,6 @@
 
 namespace Jowy\Tests\Stub;
 
-use League\Tactician\Command;
-
 /**
  * Class TestHandler
  * @package Jowy\Tests\Stub
@@ -12,28 +10,28 @@ use League\Tactician\Command;
 class TestHandler
 {
     /**
-     * @param Command $command
+     * @param $command
      * @return mixed
      */
-    public function handle(Command $command)
+    public function handle($command)
     {
         return $command->param;
     }
 
     /**
-     * @param Command $command
+     * @param $command
      * @return mixed
      */
-    public function handleTestCommand(Command $command)
+    public function handleTestCommand($command)
     {
         return $command->param;
     }
 
     /**
-     * @param Command $command
+     * @param $command
      * @return mixed
      */
-    public function __invoke(Command $command)
+    public function __invoke($command)
     {
         return $command->param;
     }

@@ -3,7 +3,6 @@
 
 namespace Jowy\Tests\Stub;
 
-use League\Tactician\Command;
 use League\Tactician\Middleware;
 
 /**
@@ -13,11 +12,11 @@ use League\Tactician\Middleware;
 class TestMiddleware implements Middleware
 {
     /**
-     * @param Command $command
+     * @param $command
      * @param callable $next
      * @return string
      */
-    public function execute(Command $command, callable $next)
+    public function execute($command, callable $next)
     {
         return "middleware";
     }

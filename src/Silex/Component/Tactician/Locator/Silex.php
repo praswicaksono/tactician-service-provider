@@ -27,10 +27,10 @@ class Silex implements HandlerLocator
     }
 
     /**
-     * @param Command $command
+     * @param $command
      * @return mixed
      */
-    public function getHandlerForCommand(Command $command)
+    public function getHandlerForCommand($command)
     {
         $handler_id = "app.handler." . join("", array_slice(explode("\\", get_class($command)), -1));
         return $this->app[$handler_id];
