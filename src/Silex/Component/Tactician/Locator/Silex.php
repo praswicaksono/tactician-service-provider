@@ -3,7 +3,6 @@
 
 namespace Silex\Component\Tactician\Locator;
 
-use League\Tactician\Command;
 use League\Tactician\Handler\Locator\HandlerLocator;
 use Pimple\Container;
 
@@ -32,7 +31,7 @@ class Silex implements HandlerLocator
      */
     public function getHandlerForCommand($command)
     {
-        $handler_id = "app.handler." . join("", array_slice(explode("\\", get_class($command)), -1));
+        $handler_id = "app.handler." . $command;
         return $this->app[$handler_id];
     }
 }

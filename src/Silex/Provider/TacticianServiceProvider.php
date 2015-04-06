@@ -9,7 +9,8 @@ use League\Tactician\Handler\MethodNameInflector\HandleInflector;
 use League\Tactician\Handler\MethodNameInflector\InvokeInflector;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Silex\Component\Tactician\Locator\Silex;
+use Silex\Component\Tactician\Locator\Silex as SilexLocator;
+use Silex\Component\Tactician\CommandNameExtractor\Silex as SilexCommandExtractor;
 
 /**
  * Class TacticianServiceProvider
@@ -39,7 +40,8 @@ class TacticianServiceProvider implements ServiceProviderInterface
             }
 
             $handler_middleware = new CommandHandlerMiddleware(
-                new Silex($app),
+                new SilexCommandExtractor(),
+                new SilexLocator($app),
                 $inflector
             );
 
