@@ -32,7 +32,7 @@ $app->register(
         "tactician.inflector" => "class_name",
         "tactician.middlewares" =>
             [
-                new LockingMiddleware();
+                new LockingMiddleware()
             ]
     ]
 );
