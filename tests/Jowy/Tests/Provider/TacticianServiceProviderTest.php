@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Jowy\Tests\Provider;
 
 use Jowy\Tests\Stub\TestCommand;
@@ -17,6 +16,26 @@ use Silex\Provider\TacticianServiceProvider;
 class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * return void
+     */
+    public function testRegisterDefaultImplementation()
+    {
+        $container = $this->init();
+
+        $container->register(
+            new TacticianServiceProvider([
+                'tactician.inflector' => 'class_name',
+                'tactician.middleware' =>
+                    [
+                        new LockingMiddleware()
+                    ]
+            ])
+        );
+
+        $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
+    }
+
+    /**
      * @return Container
      */
     protected function init()
@@ -29,52 +48,32 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
     /**
      * return void
      */
-    public function testRegisterDefaultImplementation()
-    {
-        $container = $this->init();
-
-        $container->register(
-            new TacticianServiceProvider($container),
-            [
-                "tactician.inflector" => "class_name",
-                "tactician.middlewares" =>
-                    [
-                        new LockingMiddleware()
-                    ]
-            ]
-        );
-
-        $this->assertInstanceOf("League\\Tactician\\CommandBus", $container["command.bus"]);
-    }
-
-    /**
-     * return void
-     */
     public function testClassNameLocator()
     {
         $container = $this->init();
 
         $container->register(
-            new TacticianServiceProvider(),
-            [
-                "tactician.inflector" => "class_name",
-                "tactician.middlewares" =>
+            new TacticianServiceProvider([
+                'tactician.inflector' => 'class_name',
+                'tactician.middleware' =>
                     [
                         new LockingMiddleware()
                     ]
-            ]
+            ])
         );
 
-        $this->assertInstanceOf("League\\Tactician\\CommandBus", $container["command.bus"]);
+        $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
 
-        $container["app.handler.TestCommand"] = function () {
+        $container[TestHandler::class] = function () {
             return new TestHandler();
         };
 
-        $command = new TestCommand();
-        $command->param = "jowy";
+        $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
 
-        $this->assertEquals($container["command.bus"]->handle($command), "jowy");
+        $command = new TestCommand();
+        $command->param = 'jowy';
+
+        $this->assertEquals($container['tactician.command_bus']->handle($command), 'jowy');
     }
 
     /**
@@ -85,26 +84,27 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
         $container = $this->init();
 
         $container->register(
-            new TacticianServiceProvider(),
-            [
-                "tactician.inflector" => "handle",
-                "tactician.middlewares" =>
+            new TacticianServiceProvider([
+                'tactician.inflector' => 'handle',
+                'tactician.middleware' =>
                     [
                         new LockingMiddleware()
                     ]
-            ]
+            ])
         );
 
-        $this->assertInstanceOf("League\\Tactician\\CommandBus", $container["command.bus"]);
+        $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
 
-        $container["app.handler.TestCommand"] = function () {
+        $container[TestHandler::class] = function () {
             return new TestHandler();
         };
 
-        $command = new TestCommand();
-        $command->param = "jowy";
+        $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
 
-        $this->assertEquals($container["command.bus"]->handle($command), "jowy");
+        $command = new TestCommand();
+        $command->param = 'jowy';
+
+        $this->assertEquals($container['tactician.command_bus']->handle($command), 'jowy');
     }
 
     /**
@@ -115,26 +115,27 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
         $container = $this->init();
 
         $container->register(
-            new TacticianServiceProvider(),
-            [
-                "tactician.inflector" => "invoke",
-                "tactician.middlewares" =>
+            new TacticianServiceProvider([
+                'tactician.inflector' => 'invoke',
+                'tactician.middleware' =>
                     [
                         new LockingMiddleware()
                     ]
-            ]
+            ])
         );
 
-        $this->assertInstanceOf("League\\Tactician\\CommandBus", $container["command.bus"]);
+        $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
 
-        $container["app.handler.TestCommand"] = function () {
+        $container[Testhandler::class] = function () {
             return new TestHandler();
         };
 
-        $command = new TestCommand();
-        $command->param = "jowy";
+        $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
 
-        $this->assertEquals($container["command.bus"]->handle($command), "jowy");
+        $command = new TestCommand();
+        $command->param = 'jowy';
+
+        $this->assertEquals($container['tactician.command_bus']->handle($command), 'jowy');
     }
 
     /**
@@ -145,25 +146,61 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
         $container = $this->init();
 
         $container->register(
-            new TacticianServiceProvider(),
-            [
-                "tactician.inflector" => "invoke",
-                "tactician.middlewares" =>
+            new TacticianServiceProvider([
+                'tactician.inflector' => 'invoke',
+                'tactician.middleware' =>
                     [
                         new TestMiddleware()
                     ]
-            ]
+            ])
         );
 
-        $this->assertInstanceOf("League\\Tactician\\CommandBus", $container["command.bus"]);
+        $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
 
-        $container["app.handler.TestCommand"] = function () {
+        $container[TestHandler::class] = function () {
             return new TestHandler();
         };
 
-        $command = new TestCommand();
-        $command->param = "jowy";
+        $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
 
-        $this->assertEquals($container["command.bus"]->handle($command), "middleware");
+        $command = new TestCommand();
+        $command->param = 'jowy';
+
+        $this->assertEquals($container['tactician.command_bus']->handle($command), 'middleware');
+    }
+
+    /**
+     * return void
+     */
+    public function testLazyMiddleware()
+    {
+        $container = $this->init();
+
+        $container[TestMiddleware::class] = function () {
+            return new TestMiddleware();
+        };
+
+        $container->register(
+            new TacticianServiceProvider([
+                'tactician.inflector' => 'invoke',
+                'tactician.middleware' =>
+                    [
+                        TestMiddleware::class
+                    ]
+            ])
+        );
+
+        $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
+
+        $container[TestHandler::class] = function () {
+            return new TestHandler();
+        };
+
+        $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
+
+        $command = new TestCommand();
+        $command->param = 'jowy';
+
+        $this->assertEquals($container['tactician.command_bus']->handle($command), 'middleware');
     }
 }

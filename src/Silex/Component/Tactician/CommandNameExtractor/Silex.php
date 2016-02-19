@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Silex\Component\Tactician\CommandNameExtractor;
 
 use League\Tactician\Handler\CommandNameExtractor\CommandNameExtractor;
@@ -17,11 +16,10 @@ class Silex implements CommandNameExtractor
      */
     public function extract($command)
     {
-        if (! is_object($command)) {
-            throw new \InvalidArgumentException("Command must be an object");
+        if ( ! is_object($command)) {
+            throw new \InvalidArgumentException('Command must be an object');
         }
 
-        return join("", array_slice(explode("\\", get_class($command)), -1));
+        return get_class($command);
     }
 }
-
