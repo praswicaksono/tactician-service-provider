@@ -5,7 +5,7 @@ Provides Tactician as service to Pimple or Silex Container
 
 ### Requirements
 
-* PHP > 5.5
+* PHP >= 5.5
 * Silex >= 2.0
 * Pimple >= 3.0
 
@@ -17,62 +17,96 @@ Provides Tactician as service to Pimple or Silex Container
 
 #### Register command handler in DIC
 
-~~~php
-$app["app.handler.CommandClassName"] = function() {
-    return new \Package\Handler\HandlerClassName();
+Handler must registered in container and use `FQCN` as service id
+
+```php
+$app[HandlerClass::class] = function() {
+    return new HandlerClass();
 };
-~~~
+```
 
 #### Register tactician service provider
 
-~~~php
+```php
 $app->register(
-    new TacticianServiceProvider(),
+    new TacticianServiceProvider(
     [
-        "tactician.inflector" => "class_name",
-        "tactician.middlewares" =>
+        'tactician.inflector" => 'class_name',
+        'tactician.middleware" =>
             [
                 new LockingMiddleware()
             ]
     ]
+   )
 );
-~~~
+```
 
-#### Notes
+#### Map command and handler
 
-There is some notes for registering `Command Handler` class in `Pimple`
+after tactician commadn bus service provider registered, you can map command and handler
 
-* Id must be `app.handler.CommandClassName` without full namespace
-* Must return `Command Handler` object
+```php
+$app['tactician.locator']->(CommandClass::class, HandlerClass:class);
+```
 
 ### Options
 
 #### Inflector
 
 * class_name
+* class_name_without_suffix
 * handle
 * invoke
 
 For more information for choosing `Inflector` please refer to [this documentation](http://tactician.thephpleague.com/tweaking-tactician/)
 
-#### Middlewares
+#### Middleware
 
-Must be in array that contain `Closure`, here some example if you want registering multiple `Middleware`
+Middleware can be added while tactician service registered was registered.
 
-~~~php
+```php
 $app->register(
-    new TacticianServiceProvider(),
-    [
-        "tactician.inflector" => "class_name",
-        "tactician.middlewares" =>
-            [
-                new LockingMiddleware(),
-                new SomeMiddleware(),
-                new OtherMiddleware()
-            ]
-    ]
+    new TacticianServiceProvider(
+        [
+            'tactician.inflector' => 'class_name',
+            'tactician.middleware' =>
+                [
+                    new LockingMiddleware(),
+                    new SomeMiddleware(),
+                    new OtherMiddleware()
+                ]
+        ]
+    )
 );
-~~~
+```
+
+Optionally lazy initialization for middleware is possible by using this method
+
+```php
+$app[LockingMiddleware::class] = function () {
+    return new LockingMiddleware();
+};
+
+$app->register(
+    new TacticianServiceProvider(
+        [
+            'tactician.inflector' => 'class_name',
+            'tactician.middleware' =>
+                [
+                    LockingMiddleware::class;
+                ]
+        ]
+    )
+);
+```
+
+#### Dispatching Command
+
+```php
+$command = new CommandClass('param');
+
+$container['tactician.command_bus']->handle($command)
+```
 
 ### License
 
