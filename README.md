@@ -21,8 +21,8 @@ Provides Tactician as service to Pimple or Silex Container
 $app->register(
     new TacticianServiceProvider(
         [
-            'tactician.inflector" => 'class_name',
-            'tactician.middleware" =>
+            'tactician.inflector' => 'class_name',
+            'tactician.middleware' =>
                 [
                     new LockingMiddleware()
                 ]
