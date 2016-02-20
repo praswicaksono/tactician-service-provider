@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Jowy\Tests\Stub;
 
 /**
@@ -23,6 +22,15 @@ class TestHandler
      * @return mixed
      */
     public function handleTestCommand($command)
+    {
+        return $command->param;
+    }
+
+    /**
+     * @param $command
+     * @return mixed
+     */
+    public function handleTest($command)
     {
         return $command->param;
     }

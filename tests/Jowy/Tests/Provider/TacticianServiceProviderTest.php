@@ -77,6 +77,37 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * return @void
+     */
+    public function testClassNameLocatorWithoutSuffix()
+    {
+        $container = $this->init();
+
+        $container->register(
+            new TacticianServiceProvider([
+                'tactician.inflector' => 'class_name_without_suffix',
+                'tactician.middleware' =>
+                    [
+                        new LockingMiddleware()
+                    ]
+            ])
+        );
+
+        $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
+
+        $container[TestHandler::class] = function () {
+            return new TestHandler();
+        };
+
+        $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
+
+        $command = new TestCommand();
+        $command->param = 'jowy';
+
+        $this->assertEquals($container['tactician.command_bus']->handle($command), 'jowy');
+    }
+
+    /**
      * return void
      */
     public function testHandleLocator()
