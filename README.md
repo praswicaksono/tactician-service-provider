@@ -46,7 +46,7 @@ $app[HandlerClass::class] = function() {
 after tactician commadn bus service provider registered, you can map command and handler
 
 ```php
-$app['tactician.locator']->(CommandClass::class, HandlerClass:class);
+$app['tactician.locator']->addHandler(CommandClass::class, HandlerClass:class);
 ```
 
 #### Dispatching Command
