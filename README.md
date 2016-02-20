@@ -15,16 +15,6 @@ Provides Tactician as service to Pimple or Silex Container
 
 ### Usage
 
-#### Register command handler in DIC
-
-Handler must registered in container and use `FQCN` as service id
-
-```php
-$app[HandlerClass::class] = function() {
-    return new HandlerClass();
-};
-```
-
 #### Register tactician service provider
 
 ```php
@@ -39,6 +29,16 @@ $app->register(
        ]
    )
 );
+```
+
+#### Register command handler in DIC
+
+Handler must registered in container and use `FQCN` as service id
+
+```php
+$app[HandlerClass::class] = function() {
+    return new HandlerClass();
+};
 ```
 
 #### Map command and handler
@@ -111,9 +111,3 @@ $app->register(
 ### License
 
 MIT, see LICENSE
-
-
-
-
-
-
