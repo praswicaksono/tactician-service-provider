@@ -2,6 +2,7 @@
     "name": "jowy/tactician-service-provider",
     "description": "Silex tactician service provider",
     "require": {
+        "silex/silex": "2.0.x-dev",
         "pimple/pimple": "~3.0",
         "league/tactician": "~1.0.0",
         "php":  ">=5.5"
