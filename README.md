@@ -30,13 +30,13 @@ $app[HandlerClass::class] = function() {
 ```php
 $app->register(
     new TacticianServiceProvider(
-    [
-        'tactician.inflector" => 'class_name',
-        'tactician.middleware" =>
-            [
-                new LockingMiddleware()
-            ]
-    ]
+        [
+            'tactician.inflector" => 'class_name',
+            'tactician.middleware" =>
+                [
+                    new LockingMiddleware()
+                ]
+       ]
    )
 );
 ```
@@ -47,6 +47,14 @@ after tactician commadn bus service provider registered, you can map command and
 
 ```php
 $app['tactician.locator']->(CommandClass::class, HandlerClass:class);
+```
+
+#### Dispatching Command
+
+```php
+$command = new CommandClass('param');
+
+$container['tactician.command_bus']->handle($command)
 ```
 
 ### Options
@@ -98,14 +106,6 @@ $app->register(
         ]
     )
 );
-```
-
-#### Dispatching Command
-
-```php
-$command = new CommandClass('param');
-
-$container['tactician.command_bus']->handle($command)
 ```
 
 ### License
