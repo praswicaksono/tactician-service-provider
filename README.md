@@ -6,12 +6,12 @@ Provides Tactician as service to Pimple or Silex Container
 ### Requirements
 
 * PHP >= 5.5
-* Silex >= 2.0
-* Pimple >= 3.0
+* Silex >= 1.3
+* Pimple >= 1.0
 
 ### Installation
 
-`composer require jowy/tactician-service-provider`
+`composer require jowy/tactician-service-provider:1.1`
 
 ### Usage
 
