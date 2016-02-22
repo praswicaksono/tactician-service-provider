@@ -51,7 +51,7 @@ class TacticianServiceProvider implements ServiceProviderInterface
         }
 
         // register default locator if haven't defined yet
-        if ( ! $app->offsetExists('tactician.locator')) {
+        if (! $app->offsetExists('tactician.locator')) {
             $app['tactician.locator'] = function () use ($app) {
                 return new SilexLocator($app);
             };
