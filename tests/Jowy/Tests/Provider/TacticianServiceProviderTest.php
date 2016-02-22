@@ -64,9 +64,9 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
 
-        $container[TestHandler::class] = function () {
+        $container[TestHandler::class] = $container->share(function () {
             return new TestHandler();
-        };
+        });
 
         $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
 
@@ -95,9 +95,9 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
 
-        $container[TestHandler::class] = function () {
+        $container[TestHandler::class] = $container->share(function () {
             return new TestHandler();
-        };
+        });
 
         $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
 
@@ -126,9 +126,9 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
 
-        $container[TestHandler::class] = function () {
+        $container[TestHandler::class] = $container->share(function () {
             return new TestHandler();
-        };
+        });
 
         $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
 
@@ -157,9 +157,9 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
 
-        $container[Testhandler::class] = function () {
+        $container[Testhandler::class] = $container->share(function () {
             return new TestHandler();
-        };
+        });
 
         $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
 
@@ -188,9 +188,9 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
 
-        $container[TestHandler::class] = function () {
+        $container[TestHandler::class] = $container->share(function () {
             return new TestHandler();
-        };
+        });
 
         $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
 
@@ -207,9 +207,9 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
     {
         $container = $this->init();
 
-        $container[TestMiddleware::class] = function () {
+        $container[TestMiddleware::class] = $container->share(function () {
             return new TestMiddleware();
-        };
+        });
 
         $container->register(
             new TacticianServiceProvider([
@@ -223,9 +223,9 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('League\Tactician\CommandBus', $container['tactician.command_bus']);
 
-        $container[TestHandler::class] = function () {
+        $container[TestHandler::class] = $container->share(function () {
             return new TestHandler();
-        };
+        });
 
         $container['tactician.locator']->addHandler(TestCommand::class, TestHandler::class);
 
