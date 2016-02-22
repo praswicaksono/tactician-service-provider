@@ -98,7 +98,7 @@ class TacticianServiceProvider implements ServiceProviderInterface
                 $app['tactician.inflector']
             );
 
-            // combine middleware toggether
+            // combine middleware together
             $middleware = $app['tactician.middleware'];
             array_walk($middleware, function (&$value) {
                 $value = $this->resolveMiddleware($value);
