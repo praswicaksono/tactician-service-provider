@@ -6,7 +6,7 @@ use Jowy\Tests\Stub\TestCommand;
 use Jowy\Tests\Stub\TestHandler;
 use Jowy\Tests\Stub\TestMiddleware;
 use League\Tactician\Plugins\LockingMiddleware;
-use Pimple\Container;
+use Silex\Application;
 use Silex\Provider\TacticianServiceProvider;
 
 /**
@@ -36,11 +36,11 @@ class TacticianServiceProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Container
+     * @return Application
      */
     protected function init()
     {
-        $container = new Container();
+        $container = new Application();
 
         return $container;
     }

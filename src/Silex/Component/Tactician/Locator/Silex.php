@@ -3,7 +3,7 @@
 namespace Silex\Component\Tactician\Locator;
 
 use League\Tactician\Handler\Locator\HandlerLocator;
-use Pimple\Container;
+use Silex\Application;
 
 /**
  * Class Silex
@@ -12,21 +12,21 @@ use Pimple\Container;
 class Silex implements HandlerLocator
 {
     /**
-     * @var Container
+     * @var Application
      */
     private $app;
 
     /**
-     * @param Container $app
+     * @param Application $app
      */
-    public function __construct(Container $app)
+    public function __construct(Application $app)
     {
         $this->app = $app;
         $this->app['tactician.handler_map'] = new \ArrayObject();
     }
 
     /**
-     * @param $command
+     * @param string $commandClassName
      * @return mixed
      */
     public function getHandlerForCommand($commandClassName)
@@ -35,7 +35,7 @@ class Silex implements HandlerLocator
 
         $handlerObject = $this->app[$handlerClassName];
 
-        if ( ! is_object($handlerObject)) {
+        if (! is_object($handlerObject)) {
             throw new \InvalidArgumentException(sprintf(
                 'Class %s is not registered in container',
                 $handlerClassName
@@ -51,7 +51,7 @@ class Silex implements HandlerLocator
      */
     public function addHandler($commandClassName, $handlerClassName)
     {
-        if ( ! class_exists($handlerClassName)) {
+        if (! class_exists($handlerClassName)) {
             throw new \InvalidArgumentException(sprintf(
                 'Handler class %s not found',
                 $handlerClassName

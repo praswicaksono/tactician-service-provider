@@ -16,7 +16,7 @@ class Silex implements CommandNameExtractor
      */
     public function extract($command)
     {
-        if ( ! is_object($command)) {
+        if (! is_object($command)) {
             throw new \InvalidArgumentException('Command must be an object');
         }
 
