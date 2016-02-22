@@ -58,7 +58,7 @@ class TacticianServiceProvider implements ServiceProviderInterface
         }
 
         // register default command extractor if haven't defined yet
-        if ( ! $app->offsetExists('tactician.command_extractor')) {
+        if (! $app->offsetExists('tactician.command_extractor')) {
             $app['tactician.command_extractor'] = function () {
                 return new SilexCommandExtractor();
             };
@@ -71,15 +71,21 @@ class TacticianServiceProvider implements ServiceProviderInterface
 
         $app['tactician.command_bus'] = function () use ($app) {
             // type checking, make sure all command bus component are valid
-            if ( ! $app['tactician.command_extractor'] instanceof CommandNameExtractor) {
-                throw new \InvalidArgumentException(sprintf('Tactician command extractor must implement %s', CommandNameExtractor::class));
+            if (! $app['tactician.command_extractor'] instanceof CommandNameExtractor) {
+                throw new \InvalidArgumentException(sprintf(
+                    'Tactician command extractor must implement %s',
+                    CommandNameExtractor::class
+                ));
             }
 
-            if ( ! $app['tactician.locator'] instanceof HandlerLocator) {
-                throw new \InvaludArgumentException(sprintf('tactician locator must implement %s', HandlerLocator::class));
+            if (! $app['tactician.locator'] instanceof HandlerLocator) {
+                throw new \InvalidArgumentException(sprintf(
+                    'Tactician locator must implement %s',
+                    HandlerLocator::class
+                ));
             }
 
-            if ( ! $app['tactician.inflector'] instanceof MethodNameInflector) {
+            if (! $app['tactician.inflector'] instanceof MethodNameInflector) {
                 throw new \InvalidArgumentException(sprintf(
                     'Tactician inflector must implement %s',
                     MethodNameInflector::class

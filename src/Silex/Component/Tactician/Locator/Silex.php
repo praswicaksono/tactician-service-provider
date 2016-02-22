@@ -26,7 +26,7 @@ class Silex implements HandlerLocator
     }
 
     /**
-     * @param $command
+     * @param string $commandClassName
      * @return mixed
      */
     public function getHandlerForCommand($commandClassName)
@@ -35,7 +35,7 @@ class Silex implements HandlerLocator
 
         $handlerObject = $this->app[$handlerClassName];
 
-        if ( ! is_object($handlerObject)) {
+        if (! is_object($handlerObject)) {
             throw new \InvalidArgumentException(sprintf(
                 'Class %s is not registered in container',
                 $handlerClassName
@@ -51,7 +51,7 @@ class Silex implements HandlerLocator
      */
     public function addHandler($commandClassName, $handlerClassName)
     {
-        if ( ! class_exists($handlerClassName)) {
+        if (! class_exists($handlerClassName)) {
             throw new \InvalidArgumentException(sprintf(
                 'Handler class %s not found',
                 $handlerClassName
