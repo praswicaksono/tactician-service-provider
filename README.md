@@ -101,7 +101,7 @@ $app->register(
             'tactician.inflector' => 'class_name',
             'tactician.middleware' =>
                 [
-                    LockingMiddleware::class;
+                    LockingMiddleware::class
                 ]
         ]
     )
